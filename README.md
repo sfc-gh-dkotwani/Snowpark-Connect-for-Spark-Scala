@@ -1,8 +1,8 @@
-# Snowpark Connect for Spark - Scala Example
+# ❄️ Snowpark Connect for Spark - Scala Example
+
+This project demonstrates running **Scala Spark workloads on Snowflake** using **Snowpark Connect for Spark**.
 
 **Official Snowflake Documentation:** [Run Scala code from your client](https://docs.snowflake.com/en/developer-guide/snowpark-connect/snowpark-connect-workloads-jupyter#run-scala-code-from-your-client)
-
-This project demonstrates running Scala Spark workloads on Snowflake using Snowpark Connect for Spark.
 
 ---
 
@@ -10,75 +10,79 @@ This project demonstrates running Scala Spark workloads on Snowflake using Snowp
 
 ### Step 1: Set Up Python Environment
 
-# Create working directory
-mkdir scala-workload
-cd scala-workload
-
-# Create Python virtual environment
-python3 -m venv .venv
-source .venv/bin/activate
-
-# Install Snowpark Connect
-pip install --upgrade --force-reinstall snowpark-connect
-
+| Action | Command | Notes |
+| :--- | :--- | :--- |
+| Create directory | `mkdir scala-workload` | |
+| Change into directory | `cd scala-workload` | |
+| Create Python venv | `python3 -m venv .venv` | |
+| Activate venv | `source .venv/bin/activate` | |
+| Install Snowpark Connect | `pip install --upgrade --force-reinstall snowpark-connect` | |
 
 ### Step 2: Configure Snowflake Connection
 
-Create or edit `~/.snowflake/connections.toml`;
+* Create or edit your Snowflake connection file at `~/.snowflake/connections.toml`.
+* Ensure the file contains the necessary `[spark-connect]` section with your credentials.
 
-**Set permissions:**
-chmod 0600 ~/.snowflake/connections.toml
-
+> **Set permissions:**
+> `chmod 0600 ~/.snowflake/connections.toml`
 
 ### Step 3: Copy Project Files
 
-# Copy all required files
+Copy all required files (`launch-snowpark-connect.py`, `SnowparkConnectExample.scala`, `build.sbt`, and the `project` folder) into the `scala-workload` directory.
+
+```bash
 cp /xx/launch-snowpark-connect.py .
 cp /xx/SnowparkConnectExample.scala .
 cp /xx/build.sbt .
 cp /xx/project .
+```
 
 ### Step 4: Download Dependencies
+Download the Spark Connect client using SBT (first time only, may take 1-2 minutes):
 
-# Download Spark Connect client (first time only, ~1-2 min)
+```bash
 sbt update
-
+```
 ---
 
-## 🚀 Running the Application
 
-### Terminal 1: Start Snowpark Connect Server
+### 🚀 Running the Application
+This process requires two separate terminals.
 
+#### Terminal 1: Start Snowpark Connect Server
+The server acts as the gateway for the Scala application to communicate with Snowflake.
+
+```bash
 cd scala-workload
 source .venv/bin/activate
 python launch-snowpark-connect.py
+```
 
-**Expected output:**
-============================================================
+Expected output
+
 🚀 Starting Snowpark Connect for Spark Server
-============================================================
 
-Server URL: sc://localhost:15002
-⚠️  KEEP THIS TERMINAL OPEN!
-
-In Terminal 2, run: sbt "runMain SnowparkConnectExample"
-============================================================
-
+- Server URL: sc://localhost:15002
+- ⚠️ KEEP THIS TERMINAL OPEN! 
+In Terminal 2, run: sbt "runMain SnowparkConnectExample" 
 ✅ Server started on port 15002
 
 **Keep this terminal running!**
 
 ---
 
-### Terminal 2: Run Scala Application
+#### Terminal 2: Run Scala Application
 
+This command compiles and executes the Scala application, which connects to the server started in Terminal 1.
+
+```bash
 cd scala-workload
 sbt "runMain SnowparkConnectExample"
+```
 
-**Expected output:**
-============================================================
-🚀 Snowpark Connect for Spark - Scala Example
-============================================================
+Expected output
+
+#### 🚀 Snowpark Connect for Spark - Scala Example
 
 🔗 Connecting to Snowpark Connect server...
 ✅ Connected!
@@ -118,24 +122,24 @@ sbt "runMain SnowparkConnectExample"
 |Snowflake |2024-01-15 10:30:45.0 |2          |3        |
 +----------+----------------------+-----------+---------+
 
-============================================================
 ✅ SUCCESS! All tests passed!
-============================================================
+
 
 ---
 
 ## 📁 Project Structure
 
+```text
 scala-workload/
-├── .venv/                         # Python virtual environment
-├── launch-snowpark-connect.py     # Server launcher script
-├── SnowparkConnectExample.scala   # Scala application (official example)
-├── build.sbt                      # SBT build file
+├── .venv/                          # Python virtual environment
+├── launch-snowpark-connect.py      # Server launcher script
+├── SnowparkConnectExample.scala    # Scala application (official example)
+├── build.sbt                       # SBT build file
 ├── project/
-│   ├── build.properties          # SBT version
-│   └── plugins.sbt               # SBT plugins
-└── target/                       # Compiled output
-
+│   ├── build.properties            # SBT version
+│   └── plugins.sbt                 # SBT plugins
+└── target/                         # Compiled output
+```
 ---
 
 ## 🔧 Key Components
