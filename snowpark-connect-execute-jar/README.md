@@ -90,6 +90,7 @@ role = "<your-role>"
 ```
 
 
+
 Set file permissions:
 
 ```bash
@@ -125,8 +126,6 @@ sbt clean assembly
 ```
 
 Output: `target/scala-2.12/variant-data-loader-client-side.jar`
-
-```
 
 ### 5. Run
 
