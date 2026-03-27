@@ -89,7 +89,6 @@ schema = "<your-schema>"
 role = "<your-role>"
 ```
 
-> No `host` field is needed. The `snowpark-connect` package resolves the Spark Connect endpoint from the account.
 
 Set file permissions:
 
@@ -127,16 +126,9 @@ sbt clean assembly
 
 Output: `target/scala-2.12/variant-data-loader-client-side.jar`
 
-### 5. Clear Stale Environment Variables
-
-If you've previously used OSS or other Snowpark workflows, clear these to prevent them from overriding `connections.toml`:
-
-```bash
-unset SNOWFLAKE_DATABASE SNOWFLAKE_SCHEMA SNOWFLAKE_WAREHOUSE
-unset SNOWPARK_CONNECT_HOST SNOWFLAKE_PAT
 ```
 
-### 6. Run
+### 5. Run
 
 ```bash
 snowpark-connect-execute-jar \
